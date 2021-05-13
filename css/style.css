@@ -1,0 +1,71 @@
+@import './fonts.css';
+
+* {
+  box-sizing: border-box;
+}
+body {
+  background: url('./../assets/default-bg.png') no-repeat;
+  background-size: 100%;
+  /* font-family: "Geneva", "Arial", "Helvetica", sans-serif; */
+}
+
+/* #detective {
+}
+#fantasy {
+}
+#actionMovie {
+}
+#children {
+}
+#comedy {
+}
+#melodrama {
+}
+#adventure {
+} */
+.nav, .nav__menubar{
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 20px 5px 20px;
+  align-items: center;
+}
+
+.main-nav {
+  width: 50%;
+  justify-content: center;
+}
+.main-nav__content {
+  margin: 10px 10px;
+}
+
+.genres-list {
+  display: flex;
+  justify-content: space-around;
+
+
+}
+.genres-list > div > p {
+  font-family: 'Helvetica', sans-serif;
+  font-weight: normal;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.637);
+}
+/*
+.genres__detective {
+}
+.genres__content_focused {
+}
+.genres__fantasy {
+}
+.genres__content {
+}
+.genres__actionMovie {
+}
+.genres__children {
+}
+.genres__comedy {
+}
+.genres__melodrama {
+}
+.genres__adventure {
+} */

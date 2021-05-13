@@ -1,0 +1,47 @@
+@font-face {
+  font-family: 'Arial';
+  src: local('Arial'), local('ArialMT'),
+      url('./../assets/fonts/Arial/ArialMT.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Arial';
+  src: local('Arial Bold'), local('Arial-BoldMT'),
+      url('./../assets/fonts/Arial/Arial-BoldMT.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Geneva';
+  src: local('Geneva'),
+      url('./../assets/fonts/Geneva/geneva-normal.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* @font-face {
+  font-family: 'Geneva';
+  src: local('Geneva Bold'),
+      url('../assets/fonts/Geneva/geneva-bold-italic.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+} */
+
+@font-face {
+  font-family: 'Helvetica';
+  src: local('Helvetica'),
+      url('./../assets/fonts/Helvetica/HelveticaRegular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+}
+@font-face {
+  font-family: 'Helvetica';
+  src: local('Helvetica Bold'),
+      url('./../assets/fonts/Helvetica/HelveticaBold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+}
