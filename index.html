@@ -1,32 +1,38 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
- <head>
-   <title>movie</title>
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <link rel="stylesheet" href="./css/normalize.css">
-   <link rel="stylesheet" href="./css/style.css">
- </head>
- <body>
+  <head>
+    <title>movie</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+  <body>
     <div class="nav">
-      <div class="nav__offers">
-        <img src="./assets/menubar-offers-icon.png" alt="">
+      <div class="nav__offers content" tabindex="1">
+        <img class="img_active" src="./assets/menubar-offers-icon-active.png" alt="предложения">
+        <img class="img" src="./assets/menubar-offers-icon.png" alt="предложения">
       </div>
       <div class="nav__menubar main-nav">
-        <div class="main-nav__content">
-          <img src="./assets/menubar-search-icon.png" alt="поиск">
+        <div class="main-nav__content content" tabindex="2">
+          <img class="img_active" src="./assets/menubar-search-icon-active.png" alt="поиск">
+          <img class="img" src="./assets/menubar-search-icon.png" alt="поиск">
         </div>
-        <div class="main-nav__content">
-          <img src="./assets/menubar-live-icon.png" alt="монитор">
+        <div class="main-nav__content content" data-toggle="content" tabindex="3">
+          <img class="img_active" src="./assets/menubar-live-icon-active.png" alt="монитор">
+          <img class="img" src="./assets/menubar-live-icon.png" alt="монитор">
         </div>
-        <div class="main-nav__content">
-          <img src="./assets/menubar-vod-icon.png" alt="запись">
+        <div class="main-nav__content content" data-toggle="content" tabindex="4">
+          <img class="img_active" src="./assets/menubar-vod-icon-active.png" alt="запись">
+          <img class="img" src="./assets/menubar-vod-icon.png" alt="запись">
         </div>
-        <div class="main-nav__content">
-          <img src="./assets/menubar-apps-icon.png" alt="приложения">
+        <div class="main-nav__content content" data-toggle="content" tabindex="5">
+          <img class="img_active" src="./assets/menubar-apps-icon-active.png" alt="приложения">
+          <img class="img" src="./assets/menubar-apps-icon.png" alt="приложения">
         </div>
       </div>
-      <div class="nav__settings">
-        <img src="./assets/menubar-settings-icon.png" alt="настройки">
+      <div class="nav__settings content" data-toggle="content" tabindex="6">
+        <img class="img_active" src="./assets/menubar-settings-icon-active.png" alt="настройки">
+        <img class="img" src="./assets/menubar-settings-icon.png" alt="настройки">
       </div>
     </div>
     <div class="genres-list">

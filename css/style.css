@@ -30,19 +30,35 @@ body {
   align-items: center;
 }
 
+.nav  .content {
+  position: relative;
+}
+.nav > .nav__offers > .img_active {
+  position: absolute;
+  display: none;
+}
+.nav > .nav__settings > .img_active {
+  position: absolute;
+  display: none;
+
+}
+
 .main-nav {
   width: 50%;
   justify-content: center;
 }
 .main-nav__content {
   margin: 10px 10px;
+
+}
+.main-nav__content > .img_active {
+  position: absolute;
+  display: none;
 }
 
 .genres-list {
   display: flex;
   justify-content: space-around;
-
-
 }
 .genres-list > div > p {
   font-family: 'Helvetica', sans-serif;
