@@ -105,7 +105,7 @@ Array.from(elements.navElements).forEach(function(el) {
 function renderNavIcon(status, element, activeElement) {
   if (status === 'active') {
     activeElement.style.display = 'block';
-    activeElement.style['box-shadow'] = '0 0 30px rgba(0, 0, 255, 1)';
+    activeElement.style['box-shadow'] = '0 0 17px rgba(60, 60, 240, 1)';
     activeElement.style['border-radius'] = '50%';
   } else if (status === 'inactive') {
     activeElement.style.display = 'none';
