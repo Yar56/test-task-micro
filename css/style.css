@@ -25,6 +25,7 @@ body {
 }
 #adventure {
 } */
+
 .nav, .nav__menubar{
   display: flex;
   justify-content: space-between;
@@ -34,6 +35,7 @@ body {
 
 .nav  .content {
   position: relative;
+  z-index: 2;
 }
 .nav > .nav__offers > .img_active {
   position: absolute;
@@ -64,14 +66,16 @@ body {
   position: absolute;
   top: 0;
 }
-.rightShadow > img {
+
+/* .rightShadow > img {
   width: 30px;
   height: 600px;
 }
 .leftShadow > img {
   width: 30px;
   height: 600px;
-}
+} */
+
 .rightShadow {
   float: right;
   position: absolute;
@@ -95,6 +99,7 @@ body {
   position: relative;
   float: left;
   padding: 0 200px 0 200px;
+  z-index: -1;
 }
 .genres-list > .genres-list__container > div {
   /* min-width: 190px;
