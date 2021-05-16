@@ -29,24 +29,23 @@ body {
 .nav, .nav__menubar{
   display: flex;
   justify-content: space-between;
-  margin: 5px 20px 5px 20px;
+  margin: 5px 20px 15px 20px;
   align-items: center;
 }
 
-.nav  .content {
+.nav .content {
   position: relative;
   z-index: 2;
+  outline: none;
 }
-.nav > .nav__offers > .img_active {
+.nav .imgBlue {
   position: absolute;
   display: none;
 }
-.nav > .nav__settings > .img_active {
+.nav .imgBlue.active{
   position: absolute;
-  display: none;
-
+  display: block;
 }
-
 
 .main-nav {
   width: 50%;
@@ -60,36 +59,29 @@ body {
   position: absolute;
   display: none;
 }
-
+.topShadow {
+  position: absolute;
+  z-index: -2;
+}
 .leftShadow {
   float: left;
   position: absolute;
   top: 0;
 }
-
-/* .rightShadow > img {
-  width: 30px;
-  height: 600px;
-}
-.leftShadow > img {
-  width: 30px;
-  height: 600px;
-} */
-
 .rightShadow {
   float: right;
   position: absolute;
   top: 0;
   right: 0;
-
+}
+.bottomShadow {
+  position: absolute;
+  bottom: -2px;
 }
 
-
 .genres-list {
-  /* margin: 0 7% 0 7%; */
-  overflow: scroll;
-  max-height: 100px;
-
+  overflow: auto;
+  /* max-height: 60px; */
 }
 .genres-list > .genres-list__container {
   display: flex;
@@ -100,27 +92,32 @@ body {
   float: left;
   padding: 0 200px 0 200px;
   z-index: -1;
+  margin: 0;
 }
-.genres-list > .genres-list__container > div {
+.genres-list > .genres-list__container > li {
   /* min-width: 190px;
   max-width: 210px; */
   width: 210px;
   margin: 10px;
+
 }
-.genres-list > .genres-list__container > div > p {
+.genres-list p {
   vertical-align: middle;
   text-align: center;
   font-family: 'Helvetica', sans-serif;
   font-weight: normal;
   font-size: 32px;
   color: rgba(255, 255, 255, 0.637);
-
+  margin: 0;
+}
+.genres-list .border-bottom {
+  border-bottom: 2px solid blue;
+  width: 110px;
 }
 /*
 .genres__detective {
 }
-.genres__content_focused {
-}
+
 .genres__fantasy {
 }
 .genres__content {
@@ -134,4 +131,5 @@ body {
 .genres__melodrama {
 }
 .genres__adventure {
+
 } */

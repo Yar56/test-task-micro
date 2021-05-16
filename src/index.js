@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 var state = new Object({
   detective: [
     {
@@ -76,38 +77,82 @@ var state = new Object({
       name: 'Алиса в Стране чудес', countryAndYear: 'США, Великобритания, 2010', genre: 'фэнтези, приключения', rating: '12+', IMDb: 'IMDb: 6.40', kinopoisk: 'Кинопоиск: 7.1', 'pathImg': './assets/adventure/alice.jpeg'
     }
   ],
-  menubarActive: 'inactive'
+  currentMenuEl: 'offers', // search, live, record, apps, settings
+  genreState:    'inactive'
 });
+
+
+var keys = ['ArrowUp','ArrowDown','ArrowLeft', 'ArrowRight'];
 
 var elements = {
-  navElements: document.getElementsByClassName('content')
+  nav:                document.getElementById('navigation'),
+  navElements:        document.getElementsByClassName('content'),
+  genresListElements: document.getElementsByTagName('li')
 };
+// var render = {
+//   renderNavIcon: function(status, activeElement) {
+//     if (status === 'active') {
+//       activeElement.style.display = 'block';
+//       activeElement.style['box-shadow'] = '0 0 17px rgba(60, 60, 240, 1)';
+//       activeElement.style['border-radius'] = '50%';
+//     } else if (status === 'inactive') {
+//       activeElement.style.display = 'none';
+//     }
+//   }
+// };
+// function getActiveImage(children) {
 
-Array.from(elements.navElements).forEach(function(el) {
-  el.addEventListener('focus', function(e) {
-    console.log(e);
-    var imgActive = e.target.children[0];
-    var img = e.target.children[1];
-    // console.log(img)
-    if (state.menubarActive === 'inactive') {
-      state.menubarActive = 'active';
-    }
-    renderNavIcon(state.menubarActive, img, imgActive);
-  });
-  el.addEventListener('blur', function(e) {
-    var imgActive = e.target.children[0];
-    var img = e.target.children[1];
-    state.menubarActive = 'inactive';
-    renderNavIcon(state.menubarActive, img, imgActive);
-  });
-});
+// }
 
-function renderNavIcon(status, element, activeElement) {
-  if (status === 'active') {
-    activeElement.style.display = 'block';
-    activeElement.style['box-shadow'] = '0 0 17px rgba(60, 60, 240, 1)';
-    activeElement.style['border-radius'] = '50%';
-  } else if (status === 'inactive') {
-    activeElement.style.display = 'none';
-  }
+function getActiveElement(elements) {
+  var els = elements.navElements;
+  var result;
+  Array.from(els).forEach(function(el) {
+    var images = el.children;
+    Array.from(images).forEach(function(img) {
+      if (img.classList.contains('active')) {
+        result = el;
+      }
+    });
+  });
+  return result;
 }
+
+document.addEventListener('keydown', function(e) {
+  if (keys.indexOf(e.code) > -1) {
+    e.preventDefault();
+  }
+  if (e.code === 'Tab') {
+    var startImg = elements.navElements[0].children[0];
+    startImg.classList.add('active');
+  }
+
+  var activeElement = getActiveElement(elements);
+  var prevEl = activeElement.previousElementSibling;
+  var nextEl = activeElement.nextElementSibling;
+
+  if (e.code === 'ArrowLeft') {
+    if (prevEl === null) {
+      return;
+    } else {
+      activeElement.children[0].classList.remove('active');
+      prevEl.children[0].classList.remove('active');
+      prevEl.children[0].classList.add('active');
+    }
+  }
+  if (e.code === 'ArrowRight') {
+    if (nextEl === null) {
+      return;
+    } else {
+      activeElement.children[0].classList.remove('active');
+      nextEl.children[0].classList.remove('active');
+      nextEl.children[0].classList.add('active');
+    }
+  }
+});
+// console.log(elements.genresListElements)
+// Array.from(elements.genresListElements).forEach(function(genre) {
+//   genre.addEventListener('focus', function(e) {
+//     console.log(e);
+//   });
+// });

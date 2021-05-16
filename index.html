@@ -7,61 +7,72 @@
     <link rel="stylesheet" href="./css/style.css">
   </head>
   <body>
+    <div class="topShadow"><img src="./assets/top-shadow-big.png" alt=""></div>
     <div class="leftShadow"><img src="./assets/left-shadow.png" alt=""></div>
-    <div class="nav">
-      <div class="nav__offers content" tabindex="1">
-        <img class="img_active" src="./assets/menubar-offers-icon-active.png" alt="предложения">
+
+    <div class="nav" id="navigation">
+      <div class="nav__offers content" tabindex="1" id="offers">
+        <img class="imgBlue" src="./assets/menubar-offers-icon-active.png" alt="предложения">
         <img class="img" src="./assets/menubar-offers-icon.png" alt="предложения">
       </div>
-      <div class="nav__menubar main-nav">
-        <div class="main-nav__content content" tabindex="2">
-          <img class="img_active" src="./assets/menubar-search-icon-active.png" alt="поиск">
-          <img class="img" src="./assets/menubar-search-icon.png" alt="поиск">
-        </div>
-        <div class="main-nav__content content" data-toggle="content" tabindex="3">
-          <img class="img_active" src="./assets/menubar-live-icon-active.png" alt="монитор">
-          <img class="img" src="./assets/menubar-live-icon.png" alt="монитор">
-        </div>
-        <div class="main-nav__content content" data-toggle="content" tabindex="4">
-          <img class="img_active" src="./assets/menubar-vod-icon-active.png" alt="запись">
-          <img class="img" src="./assets/menubar-vod-icon.png" alt="запись">
-        </div>
-        <div class="main-nav__content content" data-toggle="content" tabindex="5">
-          <img class="img_active" src="./assets/menubar-apps-icon-active.png" alt="приложения">
-          <img class="img" src="./assets/menubar-apps-icon.png" alt="приложения">
-        </div>
+      <div class="main-nav__content content" tabindex="2" id="search">
+        <img class="imgBlue" src="./assets/menubar-search-icon-active.png" alt="поиск">
+        <img class="img" src="./assets/menubar-search-icon.png" alt="поиск">
       </div>
+      <div class="main-nav__content content" data-toggle="content" tabindex="3">
+        <img class="imgBlue" src="./assets/menubar-live-icon-active.png" alt="монитор">
+        <img class="img" src="./assets/menubar-live-icon.png" alt="монитор">
+      </div>
+      <div class="main-nav__content content" data-toggle="content" tabindex="4">
+        <img class="imgBlue" src="./assets/menubar-vod-icon-active.png" alt="запись">
+        <img class="img" src="./assets/menubar-vod-icon.png" alt="запись">
+      </div>
+      <div class="main-nav__content content" data-toggle="content" tabindex="5">
+        <img class="imgBlue" src="./assets/menubar-apps-icon-active.png" alt="приложения">
+        <img class="img" src="./assets/menubar-apps-icon.png" alt="приложения">
+      </div>
+      <!-- <div class="nav__menubar main-nav">
+
+      </div> -->
       <div class="nav__settings content" data-toggle="content" tabindex="6">
-        <img class="img_active" src="./assets/menubar-settings-icon-active.png" alt="настройки">
+        <img class="imgBlue" src="./assets/menubar-settings-icon-active.png" alt="настройки">
         <img class="img" src="./assets/menubar-settings-icon.png" alt="настройки">
       </div>
     </div>
     <div class="genres-list">
-      <div class="genres-list__container">
-        <div class="genres__detective" id="detective">
-          <p class="genres__content_focused">Детектив</p>
-        </div>
-        <div class="genres__fantasy" id="fantasy">
-          <p class="genres__content">Фантастика</p>
-        </div>
-        <div class="genres__actionMovie" id="actionMovie">
-          <p class="genres__content">Боевик</p>
-        </div>
-        <div class="genres__children" id="children">
-          <p class="genres__content">Для детей</p>
-        </div>
-        <div class="genres__comedy" id="comedy">
-          <p class="genres__content">Комедия</p>
-        </div>
-        <div class="genres__melodrama" id="melodrama">
-          <p class="genres__content">Мелодрамма</p>
-        </div>
-        <div class="genres__adventure" id="adventure">
-          <p class="genres__content">Приключения</p>
-        </div>
-      </div>
+      <ul class="genres-list__container">
+        <li class="genres-list__detective" id="detective" tabindex="7">
+          <p class="genres-list__content focused">Детектив</p>
+          <span class="border-bottom"></span>
+        </li>
+        <li class="genres-list__fantasy" id="fantasy" tabindex="8">
+          <p class="genres-list__content">Фантастика</p>
+          <span class="border-bottom"></span>
+        </li>
+        <li class="genres-list__actionMovie" id="actionMovie" tabindex="9">
+          <p class="genres-list__content">Боевик</p>
+          <span class="border-bottom"></span>
+        </li>
+        <li class="genres-list__children" id="children" tabindex="10">
+          <p class="genres-list__content">Для детей</p>
+          <span class="border-bottom"></span>
+        </li>
+        <li class="genres-list__comedy" id="comedy" tabindex="11">
+          <p class="genres-list__content">Комедия</p>
+          <span class="border-bottom"></span>
+        </li>
+        <li class="genres-list__melodrama" id="melodrama" tabindex="12">
+          <p class="genres-list__content">Мелодрамма</p>
+          <span class="border-bottom"></span>
+        </li>
+        <li class="genres-list__adventure" id="adventure" tabindex="13">
+          <p class="genres-list__content">Приключения</p>
+          <span class="border-bottom"></span>
+        </li>
+      <ul/>
     </div>
     <div class="rightShadow"><img src="./assets/right-shadow.png" alt=""></div>
+    <div class="bottomShadow"><img src="./assets/bottom-shadow.png" alt=""></div>
     <!-- <div class="content-carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
