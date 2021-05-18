@@ -11,89 +11,96 @@
     <div class="leftShadow"><img src="./assets/left-shadow.png" alt=""></div>
 
     <div class="nav" id="navigation">
-      <div class="nav__offers content" tabindex="1" id="offers">
+      <div class="nav__offers content-icon" id="offers" tabindex="1">
         <img class="imgBlue" src="./assets/menubar-offers-icon-active.png" alt="предложения">
         <img class="img" src="./assets/menubar-offers-icon.png" alt="предложения">
       </div>
-      <div class="main-nav__content content" tabindex="2" id="search">
+      <div class="nav__search content-icon" id="search" tabindex="2">
         <img class="imgBlue" src="./assets/menubar-search-icon-active.png" alt="поиск">
         <img class="img" src="./assets/menubar-search-icon.png" alt="поиск">
       </div>
-      <div class="main-nav__content content" data-toggle="content" tabindex="3">
+      <div class="nav__live content-icon"  id="live" tabindex="3">
         <img class="imgBlue" src="./assets/menubar-live-icon-active.png" alt="монитор">
         <img class="img" src="./assets/menubar-live-icon.png" alt="монитор">
       </div>
-      <div class="main-nav__content content" data-toggle="content" tabindex="4">
+      <div class="nav__monitor content-icon" id="monitor" tabindex="4">
         <img class="imgBlue" src="./assets/menubar-vod-icon-active.png" alt="запись">
         <img class="img" src="./assets/menubar-vod-icon.png" alt="запись">
       </div>
-      <div class="main-nav__content content" data-toggle="content" tabindex="5">
+      <div class="nav__apps content-icon" id="apps" tabindex="5">
         <img class="imgBlue" src="./assets/menubar-apps-icon-active.png" alt="приложения">
         <img class="img" src="./assets/menubar-apps-icon.png" alt="приложения">
       </div>
-      <!-- <div class="nav__menubar main-nav">
-
-      </div> -->
-      <div class="nav__settings content" data-toggle="content" tabindex="6">
+      <div class="nav__settings content-icon" id="settings" tabindex="6">
         <img class="imgBlue" src="./assets/menubar-settings-icon-active.png" alt="настройки">
         <img class="img" src="./assets/menubar-settings-icon.png" alt="настройки">
       </div>
     </div>
     <div class="genres-list">
-      <ul class="genres-list__container">
+      <ul class="genres-list__container" id="genres">
         <li class="genres-list__detective" id="detective" tabindex="7">
-          <p class="genres-list__content focused">Детектив</p>
-          <span class="border-bottom"></span>
+          <p class="genres-list__content">Детектив</p>
+          <div class="borderBottom"></div>
         </li>
         <li class="genres-list__fantasy" id="fantasy" tabindex="8">
           <p class="genres-list__content">Фантастика</p>
-          <span class="border-bottom"></span>
+          <div class="borderBottom"></div>
         </li>
         <li class="genres-list__actionMovie" id="actionMovie" tabindex="9">
           <p class="genres-list__content">Боевик</p>
-          <span class="border-bottom"></span>
+          <div class="borderBottom"></div>
         </li>
         <li class="genres-list__children" id="children" tabindex="10">
           <p class="genres-list__content">Для детей</p>
-          <span class="border-bottom"></span>
+          <div class="borderBottom"></div>
         </li>
         <li class="genres-list__comedy" id="comedy" tabindex="11">
           <p class="genres-list__content">Комедия</p>
-          <span class="border-bottom"></span>
+          <div class="borderBottom"></div>
         </li>
         <li class="genres-list__melodrama" id="melodrama" tabindex="12">
           <p class="genres-list__content">Мелодрамма</p>
-          <span class="border-bottom"></span>
+          <div class="borderBottom"></div>
         </li>
         <li class="genres-list__adventure" id="adventure" tabindex="13">
           <p class="genres-list__content">Приключения</p>
-          <span class="border-bottom"></span>
+          <div class="borderBottom"></div>
         </li>
-      <ul/>
+      </ul>
+    </div>
+    <div class="movies" id='moviesContainer'>
+      <div class="movieImg-wrapper" >
+        <div class="movieImg-wrapper__item">
+          <img src="./assets/detective/knifes.jpeg" class="carousel-item__img">
+          <div class="borderBottom"></div>
+        </div>
+        <div class="movieImg-wrapper__item">
+          <img src="/assets/detective/searching.jpeg" class="carousel-item__img">
+          <div class="borderBottom"></div>
+        </div>
+        <div class="movieImg-wrapper__item">
+          <img src="./assets/detective/sixth-sense.jpeg" class="carousel-item__img">
+          <div class="borderBottom"></div>
+        </div>
+      </div>
+      <div class="movieName">Голодные игры</div>
+      <div class="movieDescr">
+        <div class="country">США, 2012</div>
+        <div class="genre">Боевик, Фантастика</div>
+        <div class="rating">12+</div>
+        <div class="IMDb">
+          IMDb: 7.0
+          <img src="./assets/rating-star-icon.png" alt="">
+        </div>
+        <div class="kinopoisk">
+          Кинопоиск: 8.6
+          <img src="./assets/rating-star-icon.png" alt="">
+        </div>
+      </div>
     </div>
     <div class="rightShadow"><img src="./assets/right-shadow.png" alt=""></div>
     <div class="bottomShadow"><img src="./assets/bottom-shadow.png" alt=""></div>
-    <!-- <div class="content-carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="..." class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="..." class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="..." class="d-block w-100" alt="...">
-        </div>
-      </div>
-      <div class="movieName">Inception</div>
-      <div class="movieDescr">
-        <div class="country">russia</div>
-        <div class="genre">action</div>
-        <div class="rating">18+</div>
-        <div class="IMDb">7.0</div>
-        <div class="kinopoisk">8.6</div>
-      </div>
-    </div> -->
+
   <script src="src/data.js"></script>
   <script src="src/index.js"></script>
  </body>

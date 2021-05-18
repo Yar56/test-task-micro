@@ -77,82 +77,156 @@ var state = new Object({
       name: 'Алиса в Стране чудес', countryAndYear: 'США, Великобритания, 2010', genre: 'фэнтези, приключения', rating: '12+', IMDb: 'IMDb: 6.40', kinopoisk: 'Кинопоиск: 7.1', 'pathImg': './assets/adventure/alice.jpeg'
     }
   ],
-  currentMenuEl: 'offers', // search, live, record, apps, settings
-  genreState:    'inactive'
+  sizeGenreContainer: {
+    prev:   0,
+    active: 0,
+    next:   0
+  },
+  activeState:        'navigation', // genres, movies
+  lastActiveElements: {
+    fromNavToGenres:    null,
+    fromGenresToMovies: null,
+    fromMoviesToGenres: null,
+    fromGenresToNav:    null
+  }
 });
 
 
 var keys = ['ArrowUp','ArrowDown','ArrowLeft', 'ArrowRight'];
 
 var elements = {
-  nav:                document.getElementById('navigation'),
-  navElements:        document.getElementsByClassName('content'),
-  genresListElements: document.getElementsByTagName('li')
+  navContainer:       document.getElementById('navigation'),
+  genresContainer:    document.getElementById('genres'),
+  navElements:        document.getElementsByClassName('content-icon'),
+  genresListElements: document.getElementsByTagName('li'),
+  moviesContainer:    document.getElementById('moviesContainer'),
+  movies:             document.getElementsByClassName('movieImg-wrapper__item')
 };
-// var render = {
-//   renderNavIcon: function(status, activeElement) {
-//     if (status === 'active') {
-//       activeElement.style.display = 'block';
-//       activeElement.style['box-shadow'] = '0 0 17px rgba(60, 60, 240, 1)';
-//       activeElement.style['border-radius'] = '50%';
-//     } else if (status === 'inactive') {
-//       activeElement.style.display = 'none';
-//     }
-//   }
-// };
-// function getActiveImage(children) {
-
-// }
-
-function getActiveElement(elements) {
-  var els = elements.navElements;
-  var result;
-  Array.from(els).forEach(function(el) {
-    var images = el.children;
-    Array.from(images).forEach(function(img) {
-      if (img.classList.contains('active')) {
-        result = el;
-      }
-    });
+function handleGenres(genresContainer) {
+  genresContainer.addEventListener('keydown', function(e) {
+    e.stopPropagation();
+    var active = e.target;
+    var prevGenreEl = active.previousElementSibling;
+    var nextGenreEl = active.nextElementSibling;
+    renderGenresList(e.code, prevGenreEl, nextGenreEl);
   });
-  return result;
+}
+
+
+function routeToGenres(genres, lastActiveElement) {
+  elements.moviesContainer.style.display = 'flex';
+  if (lastActiveElement === null) {
+    genres[0].focus();
+  } else {
+    lastActiveElement.focus();
+  }
+}
+function routeToMovies(movies, lastActiveElement) {
+  if (lastActiveElement === null) {
+    movies[0].focus();
+  } else {
+    lastActiveElement.focus();
+  }
+}
+
+function renderNavigationMenu(keyCode, prevEl, nextEl) {
+  if (keyCode === 'ArrowRight') {
+    if (nextEl !== null) {
+      nextEl.focus();
+    }
+  }
+  if (keyCode === 'ArrowLeft') {
+    if (prevEl !== null) {
+      prevEl.focus();
+    }
+  }
+  if (keyCode === 'ArrowDown') {
+    state.activeState = 'genres';
+    state.lastActiveElements.fromNavToGenres = document.activeElement;
+    document.activeElement.blur();
+    routeToGenres(elements.genresListElements, state.lastActiveElements.fromMoviesToGenres);
+  }
+}
+
+function renderGenresList(keyCode, prevEl, nextEl) {
+
+  if (keyCode === 'ArrowRight') {
+    if (nextEl !== null) {
+      console.log(nextEl.offsetLeft);
+      var prop = [
+        'translateX(-',
+        '100',
+        'px)'
+      ].join('');
+
+      var container = nextEl.parentNode;
+
+      container.style.transform = prop;
+      container.style.transition = '0.5s';
+      nextEl.focus();
+
+    }
+  }
+  if (keyCode === 'ArrowLeft') {
+    if (prevEl !== null) {
+      var prop2 = [
+        'translateX(',
+        '100',
+        'px)'
+      ].join('');
+
+      var container2 = prevEl.parentNode;
+
+      container2.style.transform = prop2;
+      container2.style.transition = '0.5s';
+      prevEl.focus();
+    }
+  }
+  if (keyCode === 'ArrowDown') {
+    state.activeState = 'movies';
+    state.lastActiveElements.fromNavToGenres = document.activeElement;
+    document.activeElement.blur();
+    routeToMovies(elements.movies, state.lastActiveElements.fromMoviesToGenres);
+  }
+}
+
+function renderMoviesList(keyCode, prevEl, nextEl) {
+  if (keyCode === 'ArrowRight') {
+    if (nextEl !== null) {
+      nextEl.focus();
+    }
+  }
+  if (keyCode === 'ArrowLeft') {
+    if (prevEl !== null) {
+      prevEl.focus();
+    }
+  }
 }
 
 document.addEventListener('keydown', function(e) {
   if (keys.indexOf(e.code) > -1) {
     e.preventDefault();
   }
-  if (e.code === 'Tab') {
-    var startImg = elements.navElements[0].children[0];
-    startImg.classList.add('active');
+  if (e.code === 'ArrowDown') {
+    elements.navElements[0].focus();
   }
 
-  var activeElement = getActiveElement(elements);
-  var prevEl = activeElement.previousElementSibling;
-  var nextEl = activeElement.nextElementSibling;
+  elements.navContainer.addEventListener('keydown', function(e) {
+    e.stopPropagation();
+    var active = e.target;
+    var prevNavEl = active.previousElementSibling;
+    var nextNavEl = active.nextElementSibling;
+    renderNavigationMenu(e.code, prevNavEl, nextNavEl);
+  });
 
-  if (e.code === 'ArrowLeft') {
-    if (prevEl === null) {
-      return;
-    } else {
-      activeElement.children[0].classList.remove('active');
-      prevEl.children[0].classList.remove('active');
-      prevEl.children[0].classList.add('active');
-    }
-  }
-  if (e.code === 'ArrowRight') {
-    if (nextEl === null) {
-      return;
-    } else {
-      activeElement.children[0].classList.remove('active');
-      nextEl.children[0].classList.remove('active');
-      nextEl.children[0].classList.add('active');
-    }
-  }
+  handleGenres(elements.genresContainer);
+
+
+  elements.moviesContainer.addEventListener('keydown', function(e) {
+    e.stopPropagation();
+    var active = e.target;
+    var prevMovieEl = active.previousElementSibling;
+    var nextMovieEl = active.nextElementSibling;
+    renderMoviesList(e.code, prevMovieEl, nextMovieEl);
+  });
 });
-// console.log(elements.genresListElements)
-// Array.from(elements.genresListElements).forEach(function(genre) {
-//   genre.addEventListener('focus', function(e) {
-//     console.log(e);
-//   });
-// });
