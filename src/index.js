@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 var state = new Object({
   detective: [
     {
@@ -57,13 +56,13 @@ var state = new Object({
   ],
   melodrama: [
     {
-      name: 'Форрест Гамп', countryAndYear: 'США, 1994', genre: 'драма, мелодрама', rating: '12+', IMDb: 'IMDb: 8.8', kinopoisk: 'Кинопоиск: 8.9', 'pathImg': './assets/melodramma/forest.jpeg'
+      name: 'Форрест Гамп', countryAndYear: 'США, 1994', genre: 'драма, мелодрама', rating: '12+', IMDb: 'IMDb: 8.8', kinopoisk: 'Кинопоиск: 8.9', 'pathImg': './assets/melodrama/forest.jpeg'
     },
     {
-      name: 'Титаник', countryAndYear: 'США, 1997', genre: 'мелодрама', rating: '12+', IMDb: 'IMDb: 8.8', kinopoisk: 'Кинопоиск: 8.9', 'pathImg': './assets/melodramma/titanic.jpeg'
+      name: 'Титаник', countryAndYear: 'США, 1997', genre: 'мелодрама', rating: '12+', IMDb: 'IMDb: 8.8', kinopoisk: 'Кинопоиск: 8.9', 'pathImg': './assets/melodrama/titanic.jpeg'
     },
     {
-      name: 'Великий Гэтсби', countryAndYear: 'Австралия, США, 2013', genre: 'драма, мелодрама', rating: '16+', IMDb: 'IMDb: 7.20', kinopoisk: 'Кинопоиск: 7.9', 'pathImg': './assets/melodramma/gatsby.jpeg'
+      name: 'Великий Гэтсби', countryAndYear: 'Австралия, США, 2013', genre: 'драма, мелодрама', rating: '16+', IMDb: 'IMDb: 7.20', kinopoisk: 'Кинопоиск: 7.9', 'pathImg': './assets/melodrama/gatsby.jpeg'
     }
   ],
   adventure: [
@@ -92,7 +91,6 @@ var state = new Object({
   }
 });
 
-
 var keys = ['ArrowUp','ArrowDown','ArrowLeft', 'ArrowRight'];
 
 var elements = {
@@ -101,26 +99,66 @@ var elements = {
   navElements:        document.getElementsByClassName('content-icon'),
   genresListElements: document.getElementsByTagName('li'),
   moviesContainer:    document.getElementById('moviesContainer'),
-  movies:             document.getElementsByClassName('movieImg-wrapper__item')
+  movies:             document.getElementsByClassName('movieImg-wrapper__item'),
+  moviesSection:      document.getElementsByClassName('movies-section')[0],
 };
+
+function renderMovie(contaienr, element) {
+  var images = contaienr.children[0].children;
+  var name = contaienr.children[1];
+  var county = contaienr.children[2].children[0];
+  var genre = contaienr.children[2].children[1];
+  var rating = contaienr.children[2].children[2];
+  var imdb = contaienr.children[2].children[3];
+  var kinopoisk = contaienr.children[2].children[4];
+  // console.log(element)
+  element.forEach(function(movie, i, arr) {
+    // console.log(images[i].children);
+    images[i].children[0].setAttribute('src', movie.pathImg);
+    name.textContent = arr[0].name;
+    county.textContent = arr[0].countryAndYear;
+    genre.textContent = arr[0].genre;
+    rating.textContent = arr[0].rating;
+    imdb.textContent = arr[0].IMDb;
+    kinopoisk.textContent = arr[0].kinopoisk
+  });
+}
+
+function renderSwitchMovie(el) {
+  console.log(el.parentNode.parentNode)
+  console.log(state.activeGenre)
+  var data = state[state.activeGenre];
+  var name = document.getElementsByClassName('movieName')[0];
+  var county = document.getElementsByClassName('country')[0];
+  var genre = document.getElementsByClassName('genre')[0];
+  var rating = document.getElementsByClassName('rating')[0];
+  var imdb = document.getElementsByClassName('IMDb')[0];
+  var kinopoisk = document.getElementsByClassName('kinopoisk')[0];
+  data.forEach(function(dataMovie) {
+    name.textContent = dataMovie.name;
+    county.textContent = dataMovie.countryAndYear;
+    genre.textContent = dataMovie.genre;
+    rating.textContent = dataMovie.rating;
+    imdb.textContent = dataMovie.IMDb;
+    kinopoisk.textContent = dataMovie.kinopoisk
+  })
+  console.log(data)
+}
 
 var routes = {
   routeFromNavToGenres: function(genres, lastActiveElement) {
-    var moviesSection = document.getElementsByClassName('movies-section')[0];
-    moviesSection.style.display = 'flex';
-    // console.log(moviesSection)
+    // var moviesSection = document.getElementsByClassName('movies-section')[0];
+    elements.moviesSection.style.display = 'flex';
+
     if (lastActiveElement === null) {
-      var images = moviesSection.children[0].children;
-
-      state.detective.forEach(function(movie, i) {
-        console.log(images[i].children);
-
-        images[i].children[0].setAttribute('src', movie.pathImg);
-
-      });
-
+      state.activeGenre = 'detective';
+      renderMovie(elements.moviesSection, state.detective);
       genres[0].focus();
     } else {
+      var id = lastActiveElement.getAttribute('id');
+      var lastGenre = state[id];
+      state.activeGenre = id;
+      renderMovie(moviesSection, lastGenre);
       lastActiveElement.focus();
     }
   },
@@ -155,7 +193,7 @@ function renderNavigationMenu(keyCode, prevEl, nextEl) {
     state.activeState = 'genres';
     state.lastActiveElements.fromNavToGenres = document.activeElement;
     document.activeElement.blur();
-    console.log(state.lastActiveElements);
+    console.log(state.activeGenre);
     routes.routeFromNavToGenres(elements.genresListElements, state.lastActiveElements.fromGenresToMovies);
   }
 }
@@ -172,6 +210,10 @@ function renderGenresList(keyCode, prevEl, nextEl) {
       var container = nextEl.parentNode;
       container.style.transform = prop;
       container.style.transition = '0.5s';
+
+      var id = nextEl.getAttribute('id');
+      renderMovie(elements.moviesSection, state[id]);
+
       nextEl.focus();
     }
   }
@@ -183,8 +225,10 @@ function renderGenresList(keyCode, prevEl, nextEl) {
         'px)'
       ].join('');
 
-      var container2 = prevEl.parentNode;
+      var id = prevEl.getAttribute('id');
+      renderMovie(elements.moviesSection, state[id]);
 
+      var container2 = prevEl.parentNode;
       container2.style.transform = prop2;
       container2.style.transition = '0.5s';
       prevEl.focus();
@@ -208,6 +252,7 @@ function renderGenresList(keyCode, prevEl, nextEl) {
 function renderMoviesList(keyCode, prevEl, nextEl) {
   if (keyCode === 'ArrowRight') {
     if (nextEl !== null) {
+      renderSwitchMovie(nextEl);
       nextEl.focus();
     }
   }
