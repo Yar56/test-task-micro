@@ -12,21 +12,6 @@ body {
   /* font-family: "Geneva", "Arial", "Helvetica", sans-serif; */
 }
 
-/* #detective {
-}
-#fantasy {
-}
-#actionMovie {
-}
-#children {
-}
-#comedy {
-}
-#melodrama {
-}
-#adventure {
-} */
-
 .nav {
   display: flex;
   justify-content: space-between;
@@ -123,25 +108,33 @@ body {
 
 }
 
-.movies {
+.movies-section {
   height: 100vh;
   display: none;
   flex-direction: column;
 }
 .movieImg-wrapper {
   width: 50%;
-  margin: 50px 50px 0 500px;
+  height: 300px;
+  margin: 20px 0px 0px 500px;
   display: flex;
   justify-content: center;
 }
-.movies .movieImg-wrapper__item {
+.movies-section .movieImg-wrapper__item {
   margin: 0 10px 0 10px;
 }
-.movies .movieImg-wrapper__item img {
+.movies-section .movieImg-wrapper__item img {
   width: 170px;
   height: 270px;
+  transform: scale(0.9);
 }
-.movies .movieImg-wrapper__item:focus .borderBottom{
+.movies-section .movieImg-wrapper__item:focus {
+  outline: none;
+}
+.movies-section .movieImg-wrapper__item:focus img {
+  transform: scale(1.0);
+}
+.movies-section .movieImg-wrapper__item:focus .borderBottomMovie {
   margin-top: 5px;
   width: 100%;
   height: 10px;
@@ -149,7 +142,7 @@ body {
   box-shadow: 0px 5px 13px 3px #018dbf;
   border-radius: 5px;
 }
-.movies .movieName {
+.movies-section .movieName {
   margin-top: 50px;
   text-align: center;
   font-family: 'Arial', sans-serif;
@@ -157,7 +150,7 @@ body {
   color: #c9c8c9;
   font-size: 42px;
 }
-.movies .movieDescr {
+.movies-section .movieDescr {
   margin-top: 10px;
   display: flex;
   height: 100px;
@@ -166,12 +159,12 @@ body {
   color: #c9c8c9;
 
 }
-.movies .movieDescr div {
+.movies-section .movieDescr div {
   font-family: 'Arial';
   font-size: 24px;
   margin: 20px;
 }
-.movies .rating {
+.movies-section .rating {
   line-height: 1.45em;
   text-align: center;
   width: 60px;

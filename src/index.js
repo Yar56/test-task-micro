@@ -5,7 +5,7 @@ var state = new Object({
       name: 'Достать ножи', countryAndYear: 'США, 2019', genre: 'Детектив, Комедия', rating: '16+', IMDb: 'IMDb: 7.9', kinopoisk: 'Кинопоиск: 8.0', 'pathImg': './assets/detective/knifes.jpeg'
     },
     {
-      name: 'Шестое чувство', countryAndYear: 'США, 1999',genre: 'Детектив, Фэнтези', rating: '12+', IMDb: 'IMDb: 8.1', kinopoisk: 'Кинопоиск: 8.2', 'pathImg': './assets/detective/six-sense.jpeg'
+      name: 'Шестое чувство', countryAndYear: 'США, 1999',genre: 'Детектив, Фэнтези', rating: '12+', IMDb: 'IMDb: 8.1', kinopoisk: 'Кинопоиск: 8.2', 'pathImg': './assets/detective/sixth-sense.jpeg'
     },
     {
       name: 'Поиск', countryAndYear: 'Россия, США, 1999', genre: 'Детектив, Триллер', rating: '16+', IMDb: 'IMDb: 8.20', kinopoisk: 'Кинопоиск: 8.5', 'pathImg': './assets/detective/searching.jpeg'
@@ -82,6 +82,7 @@ var state = new Object({
     active: 0,
     next:   0
   },
+  activeGenre:        '',
   activeState:        'navigation', // genres, movies
   lastActiveElements: {
     fromNavToGenres:    null,
@@ -102,32 +103,42 @@ var elements = {
   moviesContainer:    document.getElementById('moviesContainer'),
   movies:             document.getElementsByClassName('movieImg-wrapper__item')
 };
-function handleGenres(genresContainer) {
-  genresContainer.addEventListener('keydown', function(e) {
-    e.stopPropagation();
-    var active = e.target;
-    var prevGenreEl = active.previousElementSibling;
-    var nextGenreEl = active.nextElementSibling;
-    renderGenresList(e.code, prevGenreEl, nextGenreEl);
-  });
-}
 
+var routes = {
+  routeFromNavToGenres: function(genres, lastActiveElement) {
+    var moviesSection = document.getElementsByClassName('movies-section')[0];
+    moviesSection.style.display = 'flex';
+    // console.log(moviesSection)
+    if (lastActiveElement === null) {
+      var images = moviesSection.children[0].children;
 
-function routeToGenres(genres, lastActiveElement) {
-  elements.moviesContainer.style.display = 'flex';
-  if (lastActiveElement === null) {
-    genres[0].focus();
-  } else {
-    lastActiveElement.focus();
+      state.detective.forEach(function(movie, i) {
+        console.log(images[i].children);
+
+        images[i].children[0].setAttribute('src', movie.pathImg);
+
+      });
+
+      genres[0].focus();
+    } else {
+      lastActiveElement.focus();
+    }
+  },
+  routeFromGenresToNav: function(lastEl) {
+    lastEl.focus();
+  },
+  routeFromGenreToMovies: function(movies, lastActiveElement) {
+    if (lastActiveElement === null) {
+      movies.children[0].focus();
+    } else {
+      lastActiveElement.focus();
+    }
+  },
+  routeFromMovieToGenre: function(lastEl) {
+    lastEl.focus();
   }
-}
-function routeToMovies(movies, lastActiveElement) {
-  if (lastActiveElement === null) {
-    movies[0].focus();
-  } else {
-    lastActiveElement.focus();
-  }
-}
+};
+
 
 function renderNavigationMenu(keyCode, prevEl, nextEl) {
   if (keyCode === 'ArrowRight') {
@@ -144,7 +155,8 @@ function renderNavigationMenu(keyCode, prevEl, nextEl) {
     state.activeState = 'genres';
     state.lastActiveElements.fromNavToGenres = document.activeElement;
     document.activeElement.blur();
-    routeToGenres(elements.genresListElements, state.lastActiveElements.fromMoviesToGenres);
+    console.log(state.lastActiveElements);
+    routes.routeFromNavToGenres(elements.genresListElements, state.lastActiveElements.fromGenresToMovies);
   }
 }
 
@@ -152,19 +164,15 @@ function renderGenresList(keyCode, prevEl, nextEl) {
 
   if (keyCode === 'ArrowRight') {
     if (nextEl !== null) {
-      console.log(nextEl.offsetLeft);
       var prop = [
         'translateX(-',
         '100',
         'px)'
       ].join('');
-
       var container = nextEl.parentNode;
-
       container.style.transform = prop;
       container.style.transition = '0.5s';
       nextEl.focus();
-
     }
   }
   if (keyCode === 'ArrowLeft') {
@@ -184,9 +192,16 @@ function renderGenresList(keyCode, prevEl, nextEl) {
   }
   if (keyCode === 'ArrowDown') {
     state.activeState = 'movies';
-    state.lastActiveElements.fromNavToGenres = document.activeElement;
+    state.lastActiveElements.fromGenresToMovies = document.activeElement;
     document.activeElement.blur();
-    routeToMovies(elements.movies, state.lastActiveElements.fromMoviesToGenres);
+    console.log(state.lastActiveElements);
+    routes.routeFromGenreToMovies(elements.moviesContainer, state.lastActiveElements.fromMoviesToGenres);
+  }
+  if (keyCode === 'ArrowUp') {
+    state.lastActiveElements.fromGenresToNav = document.activeElement;
+    document.activeElement.blur();
+    console.log(state.lastActiveElements);
+    routes.routeFromGenresToNav(state.lastActiveElements.fromNavToGenres);
   }
 }
 
@@ -201,6 +216,13 @@ function renderMoviesList(keyCode, prevEl, nextEl) {
       prevEl.focus();
     }
   }
+  if (keyCode === 'ArrowUp') {
+    console.log(document.activeElement);
+    state.lastActiveElements.fromMoviesToGenres = document.activeElement;
+    document.activeElement.blur();
+    console.log(state.lastActiveElements);
+    routes.routeFromMovieToGenre(state.lastActiveElements.fromGenresToMovies);
+  }
 }
 
 document.addEventListener('keydown', function(e) {
@@ -212,18 +234,25 @@ document.addEventListener('keydown', function(e) {
   }
 
   elements.navContainer.addEventListener('keydown', function(e) {
-    e.stopPropagation();
+    e.stopImmediatePropagation();
     var active = e.target;
     var prevNavEl = active.previousElementSibling;
     var nextNavEl = active.nextElementSibling;
     renderNavigationMenu(e.code, prevNavEl, nextNavEl);
   });
 
-  handleGenres(elements.genresContainer);
+  elements.genresContainer.addEventListener('keydown', function(e) {
+    e.stopImmediatePropagation();
+    var active = e.target;
+    var prevGenreEl = active.previousElementSibling;
+    var nextGenreEl = active.nextElementSibling;
+
+    renderGenresList(e.code, prevGenreEl, nextGenreEl);
+  });
 
 
   elements.moviesContainer.addEventListener('keydown', function(e) {
-    e.stopPropagation();
+    e.stopImmediatePropagation();
     var active = e.target;
     var prevMovieEl = active.previousElementSibling;
     var nextMovieEl = active.nextElementSibling;
