@@ -4,12 +4,9 @@
   box-sizing: border-box;
 }
 body {
-  /* background-color: rgb(119, 104, 106); */
   background: url('./../assets/default-bg.png') no-repeat;
   background-size: cover;
   overflow: hidden;
-  /* background-position: inherit; */
-  /* font-family: "Geneva", "Arial", "Helvetica", sans-serif; */
 }
 .backgroundMovie {
   height: 100vh;
@@ -50,22 +47,27 @@ body {
   display: block;
 }
 
-.topShadow {
+.topShadow img{
+  width: 100%;
   position: absolute;
   z-index: -2;
 }
-.leftShadow {
+
+.leftShadow img {
+  height: 100vh;
   float: left;
   position: absolute;
   top: 0;
 }
-.rightShadow {
+.rightShadow img {
+  height: 100vh;
   float: right;
   position: absolute;
   top: 0;
   right: 0;
 }
-.bottomShadow {
+.bottomShadow img {
+  width: 100%;
   position: absolute;
   bottom: -2px;
 }
