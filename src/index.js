@@ -312,11 +312,6 @@ function app() {
       fromGenresToNav:    null
     }
   });
-  // var height = window.screen.height;
-  // var width = window.screen.width;
-  // if (width !== 1280 && height !== 720) {
-  //   document.body.style.transform = 'scaleZ(1)';
-  // }
   document.addEventListener('keydown', function(e) {
     if (keys.indexOf(e.code) > -1) {
       e.preventDefault();
