@@ -81,8 +81,7 @@ var state = new Object({
     active: 0,
     next:   0
   },
-  activeGenre:        '',
-  activeState:        'navigation', // genres, movies
+  activeGenre:        'detective',
   lastActiveElements: {
     fromNavToGenres:    null,
     fromGenresToMovies: null,
@@ -94,71 +93,82 @@ var state = new Object({
 var keys = ['ArrowUp','ArrowDown','ArrowLeft', 'ArrowRight'];
 
 var elements = {
-  navContainer:       document.getElementById('navigation'),
-  genresContainer:    document.getElementById('genres'),
-  navElements:        document.getElementsByClassName('content-icon'),
-  genresListElements: document.getElementsByTagName('li'),
-  moviesContainer:    document.getElementById('moviesContainer'),
-  movies:             document.getElementsByClassName('movieImg-wrapper__item'),
-  moviesSection:      document.getElementsByClassName('movies-section')[0],
+  navContainer:             document.getElementById('navigation'),
+  genresContainer:          document.getElementById('genres'),
+  navElements:              document.getElementsByClassName('content-icon'),
+  genresListElements:       document.getElementsByTagName('li'),
+  moviesContainer:          document.getElementById('moviesContainer'),
+  movies:                   document.getElementsByClassName('movieImg-wrapper__item'),
+  movieImgWrapper:          document.getElementsByClassName('movieImg-wrapper')[0],
+  moviesSection:            document.getElementsByClassName('movies-section')[0],
+  elementsDescriptionMovie: {
+    name:      document.getElementsByClassName('movieName')[0],
+    county:    document.getElementsByClassName('country')[0],
+    genre:     document.getElementsByClassName('genre')[0],
+    rating:    document.getElementsByClassName('rating')[0],
+    imdb:      document.getElementsByClassName('IMDb')[0],
+    kinopoisk: document.getElementsByClassName('kinopoisk')[0]
+  }
 };
+function renderBackgroung(pathImg) {
+  // var backgroundImg = pathImg;
+  var back = document.getElementsByClassName('backgroundMovie')[0];
+  back.style.background = 'url(' + pathImg + ')';
+  back.style['background-repeat'] = 'no-repeat';
+  back.style['background-size'] = '90% 120%';
+  back.style['background-position'] = 'center';
+  back.style.filter = 'blur(8px)';
+}
 
-function renderMovie(contaienr, element) {
-  var images = contaienr.children[0].children;
-  var name = contaienr.children[1];
-  var county = contaienr.children[2].children[0];
-  var genre = contaienr.children[2].children[1];
-  var rating = contaienr.children[2].children[2];
-  var imdb = contaienr.children[2].children[3];
-  var kinopoisk = contaienr.children[2].children[4];
-  // console.log(element)
+function renderMovie(element) {
   element.forEach(function(movie, i, arr) {
-    // console.log(images[i].children);
-    images[i].children[0].setAttribute('src', movie.pathImg);
-    name.textContent = arr[0].name;
-    county.textContent = arr[0].countryAndYear;
-    genre.textContent = arr[0].genre;
-    rating.textContent = arr[0].rating;
-    imdb.textContent = arr[0].IMDb;
-    kinopoisk.textContent = arr[0].kinopoisk
+    elements.movieImgWrapper.children[i].children[0].setAttribute('src', movie.pathImg);
+    elements.elementsDescriptionMovie.name.textContent = arr[0].name;
+    elements.elementsDescriptionMovie.county.textContent = arr[0].countryAndYear;
+    elements.elementsDescriptionMovie.genre.textContent = arr[0].genre;
+    elements.elementsDescriptionMovie.rating.textContent = arr[0].rating;
+    elements.elementsDescriptionMovie.imdb.textContent = arr[0].IMDb;
+    elements.elementsDescriptionMovie.kinopoisk.textContent = arr[0].kinopoisk;
   });
 }
 
 function renderSwitchMovie(el) {
-  console.log(el.parentNode.parentNode)
-  console.log(state.activeGenre)
   var data = state[state.activeGenre];
+  var movieIndex = el.dataset.position;
+
   var name = document.getElementsByClassName('movieName')[0];
   var county = document.getElementsByClassName('country')[0];
   var genre = document.getElementsByClassName('genre')[0];
   var rating = document.getElementsByClassName('rating')[0];
   var imdb = document.getElementsByClassName('IMDb')[0];
   var kinopoisk = document.getElementsByClassName('kinopoisk')[0];
-  data.forEach(function(dataMovie) {
-    name.textContent = dataMovie.name;
-    county.textContent = dataMovie.countryAndYear;
-    genre.textContent = dataMovie.genre;
-    rating.textContent = dataMovie.rating;
-    imdb.textContent = dataMovie.IMDb;
-    kinopoisk.textContent = dataMovie.kinopoisk
-  })
-  console.log(data)
+
+  data.forEach(function(dataMovie, i, arr) {
+    name.textContent = arr[movieIndex].name;
+    county.textContent = arr[movieIndex].countryAndYear;
+    genre.textContent = arr[movieIndex].genre;
+    rating.textContent = arr[movieIndex].rating;
+    imdb.textContent = arr[movieIndex].IMDb;
+    kinopoisk.textContent = arr[movieIndex].kinopoisk;
+  });
 }
 
-var routes = {
+var router = {
   routeFromNavToGenres: function(genres, lastActiveElement) {
-    // var moviesSection = document.getElementsByClassName('movies-section')[0];
     elements.moviesSection.style.display = 'flex';
-
     if (lastActiveElement === null) {
       state.activeGenre = 'detective';
-      renderMovie(elements.moviesSection, state.detective);
+      var pathDetectiveImg = state[state.activeGenre][0].pathImg;
+      renderMovie(state.detective);
+      renderBackgroung(pathDetectiveImg);
       genres[0].focus();
     } else {
       var id = lastActiveElement.getAttribute('id');
       var lastGenre = state[id];
       state.activeGenre = id;
-      renderMovie(moviesSection, lastGenre);
+      var pathActiveImg = state[id][0].pathImg;
+      renderMovie(lastGenre);
+      renderBackgroung(pathActiveImg);
       lastActiveElement.focus();
     }
   },
@@ -194,12 +204,11 @@ function renderNavigationMenu(keyCode, prevEl, nextEl) {
     state.lastActiveElements.fromNavToGenres = document.activeElement;
     document.activeElement.blur();
     console.log(state.activeGenre);
-    routes.routeFromNavToGenres(elements.genresListElements, state.lastActiveElements.fromGenresToMovies);
+    router.routeFromNavToGenres(elements.genresListElements, state.lastActiveElements.fromGenresToMovies);
   }
 }
 
 function renderGenresList(keyCode, prevEl, nextEl) {
-
   if (keyCode === 'ArrowRight') {
     if (nextEl !== null) {
       var prop = [
@@ -211,9 +220,10 @@ function renderGenresList(keyCode, prevEl, nextEl) {
       container.style.transform = prop;
       container.style.transition = '0.5s';
 
-      var id = nextEl.getAttribute('id');
-      renderMovie(elements.moviesSection, state[id]);
+      var nextGenreName = nextEl.getAttribute('id');
+      state.activeGenre = nextGenreName;
 
+      renderMovie(state[nextGenreName]);
       nextEl.focus();
     }
   }
@@ -225,8 +235,10 @@ function renderGenresList(keyCode, prevEl, nextEl) {
         'px)'
       ].join('');
 
-      var id = prevEl.getAttribute('id');
-      renderMovie(elements.moviesSection, state[id]);
+      var prevGenreName = prevEl.getAttribute('id');
+      state.activeGenre = prevGenreName;
+
+      renderMovie(state[prevGenreName]);
 
       var container2 = prevEl.parentNode;
       container2.style.transform = prop2;
@@ -239,13 +251,13 @@ function renderGenresList(keyCode, prevEl, nextEl) {
     state.lastActiveElements.fromGenresToMovies = document.activeElement;
     document.activeElement.blur();
     console.log(state.lastActiveElements);
-    routes.routeFromGenreToMovies(elements.moviesContainer, state.lastActiveElements.fromMoviesToGenres);
+    router.routeFromGenreToMovies(elements.moviesContainer, state.lastActiveElements.fromMoviesToGenres);
   }
   if (keyCode === 'ArrowUp') {
     state.lastActiveElements.fromGenresToNav = document.activeElement;
     document.activeElement.blur();
     console.log(state.lastActiveElements);
-    routes.routeFromGenresToNav(state.lastActiveElements.fromNavToGenres);
+    router.routeFromGenresToNav(state.lastActiveElements.fromNavToGenres);
   }
 }
 
@@ -258,6 +270,7 @@ function renderMoviesList(keyCode, prevEl, nextEl) {
   }
   if (keyCode === 'ArrowLeft') {
     if (prevEl !== null) {
+      renderSwitchMovie(prevEl);
       prevEl.focus();
     }
   }
@@ -265,8 +278,7 @@ function renderMoviesList(keyCode, prevEl, nextEl) {
     console.log(document.activeElement);
     state.lastActiveElements.fromMoviesToGenres = document.activeElement;
     document.activeElement.blur();
-    console.log(state.lastActiveElements);
-    routes.routeFromMovieToGenre(state.lastActiveElements.fromGenresToMovies);
+    router.routeFromMovieToGenre(state.lastActiveElements.fromGenresToMovies);
   }
 }
 
@@ -291,10 +303,8 @@ document.addEventListener('keydown', function(e) {
     var active = e.target;
     var prevGenreEl = active.previousElementSibling;
     var nextGenreEl = active.nextElementSibling;
-
     renderGenresList(e.code, prevGenreEl, nextGenreEl);
   });
-
 
   elements.moviesContainer.addEventListener('keydown', function(e) {
     e.stopImmediatePropagation();
