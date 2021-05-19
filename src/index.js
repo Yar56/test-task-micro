@@ -25,7 +25,7 @@ var render = {
     var back = document.getElementsByClassName('backgroundMovie')[0];
     back.style.background = 'url(' + pathImg + ')';
     back.style['background-repeat'] = 'no-repeat';
-    back.style['background-size'] = '90% 120%';
+    back.style['background-size'] = '90% 140%';
     back.style['background-position'] = 'center';
     back.style.filter = 'blur(8px)';
   },
@@ -84,10 +84,11 @@ var render = {
       if (nextEl !== null) {
         var prop = [
           'translateX(-',
-          '100',
+          '150',
           'px)'
         ].join('');
         var container = nextEl.parentNode;
+        console.log(window.getComputedStyle(container).width);
         container.style.transform = prop;
         container.style.transition = '0.5s';
 
@@ -105,7 +106,7 @@ var render = {
       if (prevEl !== null) {
         var prop2 = [
           'translateX(',
-          '100',
+          '150',
           'px)'
         ].join('');
 
@@ -140,6 +141,23 @@ var render = {
         render.renderSwitchMovie(nextEl, state);
         var pathImgNextEl = state[state.activeGenre][nextEl.dataset.position].pathImg;
         render.renderBackgroung(pathImgNextEl);
+        var container = nextEl.parentNode;
+        console.log(state.sizeMoviesContainer);
+        var positionEl = nextEl.dataset.position;
+
+        console.log(positionEl);
+        switch(positionEl) {
+        case '0':
+          container.style['margin-left'] = '400px';
+          break;
+        case '1':
+          container.style['margin-left'] = '0px';
+          break;
+        case '2':
+          container.style['margin-left'] = '-400px';
+          break;
+        default: break;
+        }
         nextEl.focus();
       }
     }
@@ -148,6 +166,24 @@ var render = {
         render.renderSwitchMovie(prevEl, state);
         var pathImgPrevtEl = state[state.activeGenre][prevEl.dataset.position].pathImg;
         render.renderBackgroung(pathImgPrevtEl);
+
+        var container2 = prevEl.parentNode;
+        console.log(state.sizeMoviesContainer);
+        var positionEl2 = prevEl.dataset.position;
+
+        console.log(positionEl2);
+        switch(positionEl2) {
+        case '0':
+          container2.style['margin-left'] = '400px';
+          break;
+        case '1':
+          container2.style['margin-left'] = '0px';
+          break;
+        // case '2':
+        //   container2.style['margin-left'] = '-400px';
+        //   break;
+        default: break;
+        }
         prevEl.focus();
       }
     }
@@ -159,6 +195,7 @@ var render = {
     }
   }
 };
+
 
 var router = {
   routeFromNavToGenres: function(genres, lastActiveElement, state) {
@@ -277,9 +314,12 @@ function app() {
       }
     ],
     sizeGenreContainer: {
-      prev:   0,
-      active: 0,
-      next:   0
+
+    },
+    sizeMoviesContainer: {
+      left:   '400px',
+      active: '0px',
+      right:  '-400px'
     },
     activeGenre:              'detective',
     'lastActiveMovieOfGenre': {

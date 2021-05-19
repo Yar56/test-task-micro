@@ -18,7 +18,7 @@ body {
   left: 0;
   z-index: -1;
   opacity: 0.5;
-  transition: 0.8s;
+  transition: 0.9s;
 }
 
 .nav {
@@ -76,7 +76,9 @@ body {
 }
 
 .genres-list > .genres-list__container {
+  width: 2000px;
   display: flex;
+  justify-content: space-between;
   overflow-x: auto;
   scroll-snap-type: x proximity;
   scroll-behavior: smooth;
@@ -89,7 +91,6 @@ body {
 }
 
 .genres-list li {
-  width: 210px;
   margin: 10px;
   outline: none;
 }
@@ -104,18 +105,15 @@ body {
   padding: 0;
 }
 .genres-list li:focus p {
-
   font-size: 42px;
   line-height: 0.8em;
 }
-.genres-list li:focus .borderBottom {
+.genres-list li:focus-within .borderBottomGenre {
   margin-top: 5px;
-  width: 100%;
-  height: 10px;
-  background-color: #2188b4;
-  box-shadow: 0px 5px 13px 3px #018dbf;
+  height: 5px;
+  background-color: #0f8bbd;
+  box-shadow: 0px 3px 9px 2px #0f8bbd;
   border-radius: 5px;
-
 }
 
 .movies-section {
@@ -124,11 +122,12 @@ body {
   flex-direction: column;
 }
 .movieImg-wrapper {
-  width: 50%;
+  transition: 0.7s;
   height: 300px;
-  margin: 20px 0px 0px 500px;
   display: flex;
   justify-content: center;
+  margin-top: 20px;
+  margin-left: 400px;
 }
 .movies-section .movieImg-wrapper__item {
   margin: 0 10px 0 10px;
@@ -147,7 +146,7 @@ body {
 .movies-section .movieImg-wrapper__item:focus .borderBottomMovie {
   margin-top: 5px;
   width: 100%;
-  height: 10px;
+  height: 7px;
   background-color: #2188b4;
   box-shadow: 0px 5px 13px 3px #018dbf;
   border-radius: 5px;
