@@ -115,10 +115,10 @@ body {
   line-height: 0.8em;
 }
 .genres-list li:focus-within .borderBottomGenre {
-  margin-top: 3px;
+  margin-top: 8px;
   height: 5px;
   background-color: #0f8bbd;
-  box-shadow: 0px 3px 9px 2px #0f8bbd;
+  box-shadow: 0px 5px 13px 3px #0f8bbd;
   border-radius: 5px;
 }
 
