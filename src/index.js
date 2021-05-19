@@ -21,6 +21,28 @@ var elements = {
 
 
 var render = {
+  renderTransfmGenresAndMovie: function(direction, value, sizeState, container) {
+    if (direction === 'right') {
+      sizeState.toRight += value;
+      container.style.transform = [
+        'translateX(-',
+        sizeState.toRight,
+        'px)'
+      ].join('');
+      container.style.transition = '0.5s';
+
+    } else if (direction === 'left') {
+      var left = sizeState.toRight - value;
+      sizeState.toRight = 0;
+      sizeState.toLeft += left;
+      container.style.transform = [
+        'translateX(-',
+        sizeState.toLeft,
+        'px)'
+      ].join('');
+      container.style.transition = '0.5s';
+    }
+  },
   renderBackgroung: function(pathImg) {
     var back = document.getElementsByClassName('backgroundMovie')[0];
     back.style.background = 'url(' + pathImg + ')';
@@ -79,51 +101,30 @@ var render = {
     }
   },
   renderGenresList: function(keyCode, prevEl, nextEl, state) {
-
     if (keyCode === 'ArrowRight') {
       if (nextEl !== null) {
-
-        state.sizeGenreContainer.toRight += 150;
-        var prop = [
-          'translateX(-',
-          state.sizeGenreContainer.toRight,
-          'px)'
-        ].join('');
-        var container = nextEl.parentNode;
-        container.style.transform = prop;
-        container.style.transition = '0.5s';
+        render.renderTransfmGenresAndMovie('right', 150, state.sizeGenreContainer, elements.genresContainer);
 
         var nextGenreName = nextEl.getAttribute('id');
         state.activeGenre = nextGenreName;
-
         var pathNextGenreBackground = state[state.activeGenre][0].pathImg;
         render.renderMovie(state[nextGenreName]);
         render.renderBackgroung(pathNextGenreBackground);
+
         nextEl.focus();
       }
     }
     if (keyCode === 'ArrowLeft') {
       if (prevEl !== null) {
 
-        var left = state.sizeGenreContainer.toRight - 150;
-        state.sizeGenreContainer.toRight = 0;
-        state.sizeGenreContainer.toLeft += left;
-        console.log(state.sizeGenreContainer.toLeft);
-        var prop2 = [
-          'translateX(-',
-          state.sizeGenreContainer.toLeft,
-          'px)'
-        ].join('');
+        render.renderTransfmGenresAndMovie('left', 150, state.sizeGenreContainer, elements.genresContainer);
 
         var prevGenreName = prevEl.getAttribute('id');
         state.activeGenre = prevGenreName;
-
         render.renderMovie(state[prevGenreName]);
         var pathPrevGenreBackground = state[state.activeGenre][0].pathImg;
         render.renderBackgroung(pathPrevGenreBackground);
-        var container2 = prevEl.parentNode;
-        container2.style.transform = prop2;
-        container2.style.transition = '0.5s';
+
         prevEl.focus();
       }
     }
@@ -136,7 +137,6 @@ var render = {
     if (keyCode === 'ArrowUp') {
       state.lastActiveElements.fromGenresToNav = document.activeElement;
       document.activeElement.blur();
-      console.log(state.lastActiveElements);
       router.routeFromGenresToNav(state.lastActiveElements.fromNavToGenres, state);
     }
   },
@@ -146,23 +146,7 @@ var render = {
         render.renderSwitchMovie(nextEl, state);
         var pathImgNextEl = state[state.activeGenre][nextEl.dataset.position].pathImg;
         render.renderBackgroung(pathImgNextEl);
-        var container = nextEl.parentNode;
-        console.log(state.sizeMoviesContainer);
-        var positionEl = nextEl.dataset.position;
-
-        console.log(positionEl);
-        switch(positionEl) {
-        case '0':
-          container.style['margin-left'] = '400px';
-          break;
-        case '1':
-          container.style['margin-left'] = '0px';
-          break;
-        case '2':
-          container.style['margin-left'] = '-400px';
-          break;
-        default: break;
-        }
+        render.renderTransfmGenresAndMovie('right', 190, state.sizeMoviesContainer, elements.moviesContainer);
         nextEl.focus();
       }
     }
@@ -171,24 +155,7 @@ var render = {
         render.renderSwitchMovie(prevEl, state);
         var pathImgPrevtEl = state[state.activeGenre][prevEl.dataset.position].pathImg;
         render.renderBackgroung(pathImgPrevtEl);
-
-        var container2 = prevEl.parentNode;
-        console.log(state.sizeMoviesContainer);
-        var positionEl2 = prevEl.dataset.position;
-
-        console.log(positionEl2);
-        switch(positionEl2) {
-        case '0':
-          container2.style['margin-left'] = '400px';
-          break;
-        case '1':
-          container2.style['margin-left'] = '0px';
-          break;
-        // case '2':
-        //   container2.style['margin-left'] = '-400px';
-        //   break;
-        default: break;
-        }
+        render.renderTransfmGenresAndMovie('left', 190, state.sizeMoviesContainer, elements.moviesContainer);
         prevEl.focus();
       }
     }
@@ -234,7 +201,9 @@ var router = {
       lastEl.focus();
     }
   },
-  routeFromMovieToGenre: function(lastEl) {
+  routeFromMovieToGenre: function(lastEl, state) {
+    state.sizeMoviesContainer.toRight = 0;
+    state.sizeMoviesContainer.toLeft = 0;
     lastEl.focus();
   }
 };
@@ -323,9 +292,8 @@ function app() {
       toLeft:  0
     },
     sizeMoviesContainer: {
-      left:   '400px',
-      active: '0px',
-      right:  '-400px'
+      toRight: 0,
+      toLeft:  0
     },
     activeGenre:              'detective',
     'lastActiveMovieOfGenre': {

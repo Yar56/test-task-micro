@@ -122,12 +122,11 @@ body {
   flex-direction: column;
 }
 .movieImg-wrapper {
-  transition: 0.7s;
   height: 300px;
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  margin-left: 400px;
+  padding-left: 400px;
 }
 .movies-section .movieImg-wrapper__item {
   margin: 0 10px 0 10px;
