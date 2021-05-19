@@ -82,21 +82,21 @@ var render = {
 
     if (keyCode === 'ArrowRight') {
       if (nextEl !== null) {
+
+        state.sizeGenreContainer.toRight += 150;
         var prop = [
           'translateX(-',
-          '150',
+          state.sizeGenreContainer.toRight,
           'px)'
         ].join('');
         var container = nextEl.parentNode;
-        console.log(window.getComputedStyle(container).width);
         container.style.transform = prop;
         container.style.transition = '0.5s';
 
         var nextGenreName = nextEl.getAttribute('id');
         state.activeGenre = nextGenreName;
-        console.log(state.activeGenre);
+
         var pathNextGenreBackground = state[state.activeGenre][0].pathImg;
-        // console.log(pathBackgroundNextEl)
         render.renderMovie(state[nextGenreName]);
         render.renderBackgroung(pathNextGenreBackground);
         nextEl.focus();
@@ -104,9 +104,14 @@ var render = {
     }
     if (keyCode === 'ArrowLeft') {
       if (prevEl !== null) {
+
+        var left = state.sizeGenreContainer.toRight - 150;
+        state.sizeGenreContainer.toRight = 0;
+        state.sizeGenreContainer.toLeft += left;
+        console.log(state.sizeGenreContainer.toLeft);
         var prop2 = [
-          'translateX(',
-          '150',
+          'translateX(-',
+          state.sizeGenreContainer.toLeft,
           'px)'
         ].join('');
 
@@ -314,7 +319,8 @@ function app() {
       }
     ],
     sizeGenreContainer: {
-
+      toRight: 0,
+      toLeft:  0
     },
     sizeMoviesContainer: {
       left:   '400px',

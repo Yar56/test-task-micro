@@ -76,7 +76,7 @@ body {
 }
 
 .genres-list > .genres-list__container {
-  width: 2000px;
+  width: 1900px;
   display: flex;
   justify-content: space-between;
   overflow-x: auto;
