@@ -123,8 +123,8 @@ body {
 }
 
 .movies-section {
-  margin-top: 80px;
-  /* height: 100vh; */
+  margin-top: 95px;
+  height: 100vh;
   display: none;
   flex-direction: column;
 }
